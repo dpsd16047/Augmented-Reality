@@ -25,7 +25,23 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.5.0/annyang.min.js"></script>
     <script src="build/aframe-speech-command-component.js"></script> 
     
+    <script src="https://jeromeetienne.github.io/AR.js/aframe/build/aframe-ar.js"></script>
+    <script>
 
+        //Edw prospathisa na metrhsw thn apo stash apo ta 2 object gia na balw to enwmeno animation ama einai konta metaksi tous alla den ta katafera
+        AFRAME.registerComponent("foo", {
+          init: function() {
+            this.cylinder = document.getElementById("elementH")
+            this.torus = document.getElementById("elementO")
+          },
+          tick: function() {
+            var Hposition = this.cylinder.object3D.position
+            var Oposition = this.torus.object3D.position
+            if(Hposition.distanceTo(Oposition<1)){alert("DOULEPSEE!!!!");}
+          }
+        })
+      
+      </script>
     <body style="margin : 0px; overflow: hidden;">
         <a-scene
     vr-mode-ui="enabled: false;"
@@ -42,26 +58,34 @@
         </a-entity>
 
         <a-marker preset="hiro">
-           
-            <a-entity id="box" geometry="primitive: box; width: 0.2; depth: 0.2; 
-            height: 0.2" position="3 3 0" material="color: #4CC3D9"></a-entity>
+            <a-entity  geometry="primitive: cylinder; radius: 0.15; height:1.3" position="0.4 0 0" rotation ="-90 0 0" material="color: #808000"></a-entity>
+            <a-entity  geometry="primitive: cylinder; radius: 0.15; height:0.8" position="0 0 -0.01" rotation ="0 0 90" material="color: #4CC3D9"></a-entity>
+            <a-entity  geometry="primitive: cylinder; radius: 0.15; height:1.3" position="-0.4 0 0" rotation ="-90 0 0" material="color: #4CC3D9"></a-entity>
 
-            <a-entity id="cylinder" geometry="primitive: cylinder; width: 0.2; depth: 0.2; 
-            height: 0.2" position="0 0 0" material="color: #FF00FF"></a-entity>
-
-            <a-entity id="sphere" geometry="primitive: sphere; width: 0.2; depth: 0.2; 
-            height: 0.2" position="-3 -3 0" material="color: #808000"></a-entity>
         </a-marker>
 
-        <a-marker preset='custom' type='pattern' url='marker_based\assets\pattern-dpsd.patt'>
-            <a-entity id="box" geometry="primitive: box; width: 0.2; depth: 0.2; 
-            height: 0.2" position="3 3 0" material="color: #4CC3D9"></a-entity>
+        <a-marker preset="kanji">
+            
+            <a-entity  geometry="primitive: torus; radius: 0.4; radius-tubular: 0.08  height:1" position="0 0 0" rotation ="90 0 0" material="color: #ded7e0"></a-entity>
+           
+        </a-marker>
 
-            <a-entity id="cylinder" geometry="primitive: cylinder; width: 0.2; depth: 0.2; 
-            height: 0.2" position="0 0 0" material="color: #FF00FF"></a-entity>
+        <a-marker type='pattern' url='assets\pattern-card-O.patt'>
+            <a-entity id="elementO" animation="property: rotation; to: 0 360 0; loop: true; dur: 10000" geometry="primitive: torus; radius: 0.4; radius-tubular: 0.08  height:1" position="0 0 0" rotation ="90 0 0" material="color: #ded7e0"></a-entity>
 
-            <a-entity id="sphere" geometry="primitive: sphere; width: 0.2; depth: 0.2; 
-            height: 0.2" position="-3 -3 0" material="color: #808000"></a-entity>
+        </a-marker>
+
+        <a-marker type='pattern' url='assets\pattern-DPSD16047.patt'>
+
+            <a-text value="Christina Kontzinou" scale="2 2 1" position="0 0 0">
+            </a-text>
+
+        </a-marker>
+
+        <a-marker type='pattern' url='assets\pattern-card-H.patt'>
+            <a-entity  animation="property: position; to: 0.4 0.5 0; dur: 2000; easing: linear; loop: true" geometry="primitive: cylinder; radius: 0.15; height:1.3" position="0.4 0 0" rotation ="-90 0 0"  material="color: #808000"></a-entity>
+            <a-entity animation="property: position; to: 0 0.5 -0.01; dur: 2000; easing: linear; loop: true" geometry="primitive: cylinder; radius: 0.15; height:0.8" position="0 0 -0.01" rotation ="0 0 90" material="color: #4CC3D9"></a-entity>
+            <a-entity id="elementH" animation="property: position; to: -0.4 0.5 0; dur: 2000; easing: linear; loop: true" geometry="primitive: cylinder; radius: 0.15; height:1.3" position="-0.4 0 0" rotation ="-90 0 0" material="color: #4CC3D9"></a-entity>
 
         </a-marker>
         <a-entity camera></a-entity>
